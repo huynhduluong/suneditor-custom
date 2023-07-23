@@ -1,5 +1,5 @@
 {
-  "name": "@huynhduluong/suneditor-custom",
+  "name": "@hdl/suneditor-custom",
   "version": "1.0.0",
   "description": "Vanilla javascript based WYSIWYG web editor, with no dependencies",
   "author": "huynhduluong",
