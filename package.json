@@ -1,8 +1,8 @@
 {
-  "name": "suneditor",
-  "version": "2.45.1",
+  "name": "@huynhduluong/suneditor-custom",
+  "version": "1.0.0",
   "description": "Vanilla javascript based WYSIWYG web editor, with no dependencies",
-  "author": "JiHong.Lee",
+  "author": "huynhduluong",
   "license": "MIT",
   "main": "src/suneditor.js",
   "sideEffects": [
@@ -16,12 +16,12 @@
     "test": "karma start"
   },
   "bugs": {
-    "url": "https://github.com/JiHong88/SunEditor/issues"
+    "url": "https://github.com/huynhduluong/suneditor-custom/issues"
   },
   "homepage": "http://suneditor.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JiHong88/SunEditor.git"
+    "url": "https://github.com/huynhduluong/suneditor-custom.git"
   },
   "ignore": [
     "**/.*",
