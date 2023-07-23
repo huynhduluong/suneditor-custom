@@ -18,7 +18,7 @@ export default {
     display: 'dialog',
     add: function (core) {
         core.addModule([dialog, anchor, component, resizing, fileManager]);
-        
+
         const options = core.options;
         const context = core.context;
         const contextImage = context.image = {
@@ -31,7 +31,7 @@ export default {
             _altText: '',
             _align: 'none',
             _floatClassRegExp: '__se__float\\-[a-z]+',
-            _v_src: {_linkValue: ''},
+            _v_src: { _linkValue: '' },
             svgDefaultSize: '30%',
             base64RenderIndex: 0,
             // @require @Override component
@@ -83,7 +83,7 @@ export default {
 
         const imageGalleryButton = image_dialog.querySelector('.__se__gallery');
         if (imageGalleryButton) imageGalleryButton.addEventListener('click', this._openGallery.bind(core));
-        
+
         contextImage.proportion = {};
         contextImage.inputX = {};
         contextImage.inputY = {};
@@ -93,14 +93,14 @@ export default {
             contextImage.inputY = image_dialog.querySelector('._se_image_size_y');
             contextImage.inputX.value = options.imageWidth;
             contextImage.inputY.value = options.imageHeight;
-            
+
             contextImage.inputX.addEventListener('keyup', this.setInputSize.bind(core, 'x'));
             contextImage.inputY.addEventListener('keyup', this.setInputSize.bind(core, 'y'));
 
             contextImage.inputX.addEventListener('change', this.setRatio.bind(core));
             contextImage.inputY.addEventListener('change', this.setRatio.bind(core));
             contextImage.proportion.addEventListener('change', this.setRatio.bind(core));
-            
+
             image_dialog.querySelector('.se-dialog-btn-revert').addEventListener('click', this.sizeRevert.bind(core));
         }
 
@@ -126,92 +126,92 @@ export default {
 
         let html = '' +
             '<div class="se-dialog-header">' +
-                '<button type="button" data-command="close" class="se-btn se-dialog-close" class="close" title="' + lang.dialogBox.close + '" aria-label="' + lang.dialogBox.close + '">' +
-                    core.icons.cancel +
-                '</button>' +
-                '<span class="se-modal-title">' + lang.dialogBox.imageBox.title + '</span>' +
+            '<button type="button" data-command="close" class="se-btn se-dialog-close" class="close" title="' + lang.dialogBox.close + '" aria-label="' + lang.dialogBox.close + '">' +
+            core.icons.cancel +
+            '</button>' +
+            '<span class="se-modal-title">' + lang.dialogBox.imageBox.title + '</span>' +
             '</div>' +
             '<div class="se-dialog-tabs">' +
-                '<button type="button" class="_se_tab_link active" data-tab-link="image">' + lang.toolbar.image + '</button>' +
-                '<button type="button" class="_se_tab_link" data-tab-link="url">' + lang.toolbar.link + '</button>' +
+            '<button type="button" class="_se_tab_link active" data-tab-link="image">' + lang.toolbar.image + '</button>' +
+            '<button type="button" class="_se_tab_link" data-tab-link="url">' + lang.toolbar.link + '</button>' +
             '</div>' +
             '<form method="post" enctype="multipart/form-data">' +
-                '<div class="_se_tab_content _se_tab_content_image">' +
-                    '<div class="se-dialog-body"><div style="border-bottom: 1px dashed #ccc;">';
-                    
-                    if (option.imageFileInput) {
-                        html += '' +
-                            '<div class="se-dialog-form">' +
-                                '<label>' + lang.dialogBox.imageBox.file + '</label>' +
-                                '<div class="se-dialog-form-files">' +
-                                    '<input class="se-input-form _se_image_file" type="file" accept="' + option.imageAccept + '"' + (option.imageMultipleFile ? ' multiple="multiple"' : '') + '/>' +
-                                    '<button type="button" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + lang.controller.remove + '" aria-label="' + lang.controller.remove + '">' + core.icons.cancel + '</button>' +
-                                '</div>' +
-                            '</div>' ;
-                    }
-        
-                    if (option.imageUrlInput) {
-                        html += '' +
-                            '<div class="se-dialog-form">' +
-                                '<label>' + lang.dialogBox.imageBox.url + '</label>' +
-                                '<div class="se-dialog-form-files">' +
-                                    '<input class="se-input-form se-input-url _se_image_url" type="text" />' +
-                                    ((option.imageGalleryUrl && core.plugins.imageGallery) ? '<button type="button" class="se-btn se-dialog-files-edge-button __se__gallery" title="' + lang.toolbar.imageGallery + '" aria-label="' + lang.toolbar.imageGallery + '">' + core.icons.image_gallery + '</button>' : '') +
-                                '</div>' +
-                                '<pre class="se-link-preview"></pre>' +
-                            '</div>';
-                    }
-        
-                    html += '</div>' +
-                        '<div class="se-dialog-form">' +
-                            '<label>' + lang.dialogBox.imageBox.altText + '</label><input class="se-input-form _se_image_alt" type="text" />' +
-                        '</div>';
+            '<div class="_se_tab_content _se_tab_content_image">' +
+            '<div class="se-dialog-body"><div style="border-bottom: 1px dashed #ccc;">';
 
-            if (option.imageResizing) {
-                const onlyPercentage = option.imageSizeOnlyPercentage;
-                const onlyPercentDisplay = onlyPercentage ? ' style="display: none !important;"' : '';
-                const heightDisplay = !option.imageHeightShow ? ' style="display: none !important;"' : '';
-                html += '<div class="se-dialog-form">';
-                        if (onlyPercentage || !option.imageHeightShow) {
-                            html += '' +
-                            '<div class="se-dialog-size-text">' +
-                                '<label class="size-w">' + lang.dialogBox.size + '</label>' +
-                            '</div>';
-                        } else {
-                            html += '' +
-                            '<div class="se-dialog-size-text">' +
-                                '<label class="size-w">' + lang.dialogBox.width + '</label>' +
-                                '<label class="se-dialog-size-x">&nbsp;</label>' +
-                                '<label class="size-h">' + lang.dialogBox.height + '</label>' +
-                            '</div>';
-                        }
-                        html += '' +
-                            '<input class="se-input-control _se_image_size_x" placeholder="auto"' + (onlyPercentage ? ' type="number" min="1"' : 'type="text"') + (onlyPercentage ? ' max="100"' : '') + ' />' +
-                            '<label class="se-dialog-size-x"' + heightDisplay + '>' + (onlyPercentage ? '%' : 'x') + '</label>' +
-                            '<input type="text" class="se-input-control _se_image_size_y" placeholder="auto"' + onlyPercentDisplay + (onlyPercentage ? ' max="100"' : '') + heightDisplay + '/>' +
-                            '<label' + onlyPercentDisplay + heightDisplay + '><input type="checkbox" class="se-dialog-btn-check _se_image_check_proportion" checked/>&nbsp;' + lang.dialogBox.proportion + '</label>' +
-                            '<button type="button" title="' + lang.dialogBox.revertButton + '" aria-label="' + lang.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + core.icons.revert + '</button>' +
-                        '</div>' ;
-            }
-
+        if (option.imageFileInput) {
             html += '' +
-                        '<div class="se-dialog-form se-dialog-form-footer">' +
-                            '<label><input type="checkbox" class="se-dialog-btn-check _se_image_check_caption" />&nbsp;' + lang.dialogBox.caption + '</label>' +
-                        '</div>' +
-                    '</div>' +
+                '<div class="se-dialog-form">' +
+                '<label>' + lang.dialogBox.imageBox.file + '</label>' +
+                '<div class="se-dialog-form-files">' +
+                '<input class="se-input-form _se_image_file" type="file" accept="' + option.imageAccept + '"' + (option.imageMultipleFile ? ' multiple="multiple"' : '') + '/>' +
+                '<button type="button" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + lang.controller.remove + '" aria-label="' + lang.controller.remove + '">' + core.icons.cancel + '</button>' +
                 '</div>' +
-                '<div class="_se_tab_content _se_tab_content_url" style="display: none">' +
-                    core.context.anchor.forms.innerHTML +
+                '</div>';
+        }
+
+        if (option.imageUrlInput) {
+            html += '' +
+                '<div class="se-dialog-form">' +
+                '<label>' + lang.dialogBox.imageBox.url + '</label>' +
+                '<div class="se-dialog-form-files">' +
+                '<input class="se-input-form se-input-url _se_image_url" type="text" />' +
+                ((option.imageGalleryUrl && core.plugins.imageGallery) ? '<button type="button" class="se-btn se-dialog-files-edge-button __se__gallery" title="' + lang.toolbar.imageGallery + '" aria-label="' + lang.toolbar.imageGallery + '">' + core.icons.image_gallery + '</button>' : '') +
                 '</div>' +
-                '<div class="se-dialog-footer">' +
-                    '<div' + (option.imageAlignShow ? '' : ' style="display: none"') + '>' +
-                        '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="none" checked>' + lang.dialogBox.basic + '</label>' +
-                        '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="left">' + lang.dialogBox.left + '</label>' +
-                        '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="center">' + lang.dialogBox.center + '</label>' +
-                        '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="right">' + lang.dialogBox.right + '</label>' +
-                    '</div>' +
-                    '<button type="submit" class="se-btn-primary" title="' + lang.dialogBox.submitButton + '" aria-label="' + lang.dialogBox.submitButton + '"><span>' + lang.dialogBox.submitButton + '</span></button>' +
-                '</div>' +
+                '<pre class="se-link-preview"></pre>' +
+                '</div>';
+        }
+
+        html += '</div>' +
+            '<div class="se-dialog-form">' +
+            '<label>' + lang.dialogBox.imageBox.altText + '</label><input class="se-input-form _se_image_alt" type="text" />' +
+            '</div>';
+
+        if (option.imageResizing) {
+            const onlyPercentage = option.imageSizeOnlyPercentage;
+            const onlyPercentDisplay = onlyPercentage ? ' style="display: none !important;"' : '';
+            const heightDisplay = !option.imageHeightShow ? ' style="display: none !important;"' : '';
+            html += '<div class="se-dialog-form">';
+            if (onlyPercentage || !option.imageHeightShow) {
+                html += '' +
+                    '<div class="se-dialog-size-text">' +
+                    '<label class="size-w">' + lang.dialogBox.size + '</label>' +
+                    '</div>';
+            } else {
+                html += '' +
+                    '<div class="se-dialog-size-text">' +
+                    '<label class="size-w">' + lang.dialogBox.width + '</label>' +
+                    '<label class="se-dialog-size-x">&nbsp;</label>' +
+                    '<label class="size-h">' + lang.dialogBox.height + '</label>' +
+                    '</div>';
+            }
+            html += '' +
+                '<input class="se-input-control _se_image_size_x" placeholder="auto"' + (onlyPercentage ? ' type="number" min="1"' : 'type="text"') + (onlyPercentage ? ' max="100"' : '') + ' />' +
+                '<label class="se-dialog-size-x"' + heightDisplay + '>' + (onlyPercentage ? '%' : 'x') + '</label>' +
+                '<input type="text" class="se-input-control _se_image_size_y" placeholder="auto"' + onlyPercentDisplay + (onlyPercentage ? ' max="100"' : '') + heightDisplay + '/>' +
+                '<label' + onlyPercentDisplay + heightDisplay + '><input type="checkbox" class="se-dialog-btn-check _se_image_check_proportion" checked/>&nbsp;' + lang.dialogBox.proportion + '</label>' +
+                '<button type="button" title="' + lang.dialogBox.revertButton + '" aria-label="' + lang.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + core.icons.revert + '</button>' +
+                '</div>';
+        }
+
+        html += '' +
+            '<div class="se-dialog-form se-dialog-form-footer">' +
+            '<label><input type="checkbox" class="se-dialog-btn-check _se_image_check_caption" />&nbsp;' + lang.dialogBox.caption + '</label>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '<div class="_se_tab_content _se_tab_content_url" style="display: none">' +
+            core.context.anchor.forms.innerHTML +
+            '</div>' +
+            '<div class="se-dialog-footer">' +
+            '<div' + (option.imageAlignShow ? '' : ' style="display: none"') + '>' +
+            '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="none" checked>' + lang.dialogBox.basic + '</label>' +
+            '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="left">' + lang.dialogBox.left + '</label>' +
+            '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="center">' + lang.dialogBox.center + '</label>' +
+            '<label><input type="radio" name="suneditor_image_radio" class="se-dialog-btn-radio" value="right">' + lang.dialogBox.right + '</label>' +
+            '</div>' +
+            '<button type="submit" class="se-btn-primary" title="' + lang.dialogBox.submitButton + '" aria-label="' + lang.dialogBox.submitButton + '"><span>' + lang.dialogBox.submitButton + '</span></button>' +
+            '</div>' +
             '</form>';
 
         dialog.innerHTML = html;
@@ -274,7 +274,7 @@ export default {
         const imageContainer = this.util.getParentElement(imageEl, this.util.isMediaComponent) || imageEl;
         const dataIndex = imageEl.getAttribute('data-index') * 1;
         let focusEl = (imageContainer.previousElementSibling || imageContainer.nextElementSibling);
-        
+
         const emptyDiv = imageContainer.parentNode;
         this.util.removeItem(imageContainer);
         this.plugins.image.init.call(this);
@@ -284,7 +284,7 @@ export default {
 
         // focus
         this.focusEdge(focusEl);
-        
+
         // event
         this.plugins.fileManager.deleteInfo.call(this, 'image', dataIndex, this.functions.onImageUpload);
 
@@ -297,7 +297,7 @@ export default {
      */
     on: function (update) {
         const contextImage = this.context.image;
-        
+
         if (!update) {
             contextImage.inputX.value = contextImage._origin_w = this.options.imageWidth === contextImage._defaultSizeX ? '' : this.options.imageWidth;
             contextImage.inputY.value = contextImage._origin_h = this.options.imageHeight === contextImage._defaultSizeY ? '' : this.options.imageHeight;
@@ -370,7 +370,7 @@ export default {
             if (this.context.dialog.updateModal) {
                 imagePlugin.update_image.call(this, false, true, false);
             }
-            
+
             if (contextImage.imgInputFile && contextImage.imgInputFile.files.length > 0) {
                 this.showLoading();
                 imagePlugin.submitAction.call(this, this.context.image.imgInputFile.files);
@@ -410,7 +410,7 @@ export default {
 
             if ((fileSize + infoSize) > limitSize) {
                 this.closeLoading();
-                const err = '[SUNEDITOR.imageUpload.fail] Size of uploadable total images: ' + (limitSize/1000) + 'KB';
+                const err = '[SUNEDITOR.imageUpload.fail] Size of uploadable total images: ' + (limitSize / 1000) + 'KB';
                 if (typeof this.functions.onImageUploadError !== 'function' || this.functions.onImageUploadError(err, { 'limitSize': limitSize, 'currentSize': infoSize, 'uploadSize': fileSize }, this)) {
                     this.functions.noticeOpen(err);
                 }
@@ -420,7 +420,7 @@ export default {
 
         const contextImage = this.context.image;
         contextImage._uploadFileLength = files.length;
-        
+
         const anchor = this.plugins.anchor.createAnchor.call(this, contextImage.anchorCtx, true);
         const info = {
             anchor: anchor,
@@ -440,7 +440,7 @@ export default {
                     this.plugins.image.upload.call(this, info, data);
                 }
             }.bind(this));
-            
+
             if (typeof result === 'undefined') return;
             if (!result) {
                 this.closeLoading();
@@ -510,7 +510,7 @@ export default {
                 this.plugins.image.create_image.call(this, fileList[i].url, info.anchor, info.inputWidth, info.inputHeight, info.align, file, info.alt);
             }
         }
-        
+
         this.closeLoading();
     },
 
@@ -521,11 +521,11 @@ export default {
             const filesStack = [filesLen];
             this.context.image.inputX.value = width;
             this.context.image.inputY.value = height;
-    
+
             for (let i = 0, reader, file; i < filesLen; i++) {
                 reader = new wFileReader();
                 file = files[i];
-    
+
                 reader.onload = function (reader, update, updateElement, file, index) {
                     filesStack[index] = { result: reader.result, file: file };
 
@@ -546,7 +546,7 @@ export default {
     onRender_imgBase64: function (update, filesStack, updateElement, anchor, width, height, align, alt) {
         const updateMethod = this.plugins.image.update_src;
         const createMethod = this.plugins.image.create_image;
-        
+
         for (let i = 0, len = filesStack.length; i < len; i++) {
             if (update) {
                 this.context.image._element.setAttribute('data-file-name', filesStack[i].file.name);
@@ -564,7 +564,7 @@ export default {
         const contextImage = this.context.image;
 
         try {
-            const file = {name: url.split('/').pop(), size: 0};
+            const file = { name: url.split('/').pop(), size: 0 };
             if (this.context.dialog.updateModal) this.plugins.image.update_src.call(this, url, contextImage._element, file);
             else this.plugins.image.create_image.call(this, url, this.plugins.anchor.createAnchor.call(this, contextImage.anchorCtx, true), contextImage.inputX.value, contextImage.inputY.value, contextImage._align, file, contextImage._altText);
         } catch (e) {
@@ -624,7 +624,7 @@ export default {
             if (format) contextImage._align = format.style.textAlign || format.style.float;
             // link
             if (this.util.isAnchor(tag.parentNode) && !contextImage.anchorCtx.linkValue) contextImage.anchorCtx.linkValue = ' ';
-            
+
             imagePlugin.update_image.call(this, true, false, true);
             imagePlugin.init.call(this);
         }.bind(this);
@@ -648,7 +648,7 @@ export default {
         oImg.src = src;
         oImg.alt = alt;
         oImg.setAttribute('data-rotate', '0');
-        anchor = imagePlugin.onRender_link.call(this, oImg, anchor ?  anchor.cloneNode(false) : null);
+        anchor = imagePlugin.onRender_link.call(this, oImg, anchor ? anchor.cloneNode(false) : null);
 
         if (contextImage._resizing) {
             oImg.setAttribute('data-proportion', contextImage._proportionChecked);
@@ -695,18 +695,24 @@ export default {
         let cover = contextImage._cover;
         let container = contextImage._container;
         let isNewContainer = false;
+        let parentElement = imageEl.parentElement
+        let parentElementName = parentElement.nodeName
+
+        while (parentElementName !== 'SPAN' && parentElementName !== 'P' && parentElementName !== 'DIV') {
+            parentElement = parentElement.parentElement
+            parentElementName = parentElement.nodeName
+        }
 
         if (cover === null) {
             isNewContainer = true;
             imageEl = contextImage._element.cloneNode(true);
-            cover = this.plugins.component.set_cover.call(this, imageEl);
+            cover = this.plugins.component.set_cover.call(this, imageEl, parentElementName === 'SPAN' ? "SPAN" : undefined);
         }
-
         if (container === null) {
             cover = cover.cloneNode(true);
             imageEl = cover.querySelector('img');
             isNewContainer = true;
-            container = this.plugins.component.set_container.call(this, cover, 'se-image-container');
+            container = this.plugins.component.set_container.call(this, cover, 'se-image-container', parentElementName === 'SPAN' ? "SPAN" : undefined);
         } else if (isNewContainer) {
             container.innerHTML = '';
             container.appendChild(cover);
@@ -727,7 +733,7 @@ export default {
 
         // alt
         imageEl.alt = contextImage._altText;
-        
+
         // caption
         let modifiedCaption = false;
         if (contextImage._captionChecked) {
@@ -768,10 +774,10 @@ export default {
 
         let existElement = null;
         if (isNewContainer) {
-            existElement = (this.util.isRangeFormatElement(contextImage._element.parentNode) || this.util.isWysiwygDiv(contextImage._element.parentNode)) ? 
-                contextImage._element : 
+            existElement = (this.util.isRangeFormatElement(contextImage._element.parentNode) || this.util.isWysiwygDiv(contextImage._element.parentNode)) ?
+                contextImage._element :
                 this.util.isAnchor(contextImage._element.parentNode) ? contextImage._element.parentNode : this.util.getFormatElement(contextImage._element) || contextImage._element;
-                
+
             if (this.util.getParentElement(contextImage._element, this.util.isNotCheckingNode)) {
                 existElement = isNewAnchor ? anchor : contextImage._element;
                 existElement.parentNode.replaceChild(container, existElement);
@@ -861,14 +867,14 @@ export default {
      */
     onModifyMode: function (element, size) {
         if (!element) return;
-        
+
         const contextImage = this.context.image;
         contextImage._linkElement = contextImage.anchorCtx.linkAnchor = this.util.isAnchor(element.parentNode) ? element.parentNode : null;
         contextImage._element = element;
         contextImage._cover = this.util.getParentElement(element, 'FIGURE');
         contextImage._container = this.util.getParentElement(element, this.util.isMediaComponent);
         contextImage._caption = this.util.getChildElement(contextImage._cover, 'FIGCAPTION');
-        contextImage._align =  element.getAttribute('data-align') || element.style.float || 'none';
+        contextImage._align = element.getAttribute('data-align') || element.style.float || 'none';
         element.style.float = '';
         this.plugins.anchor.setCtx(contextImage._linkElement, contextImage.anchorCtx);
 
@@ -906,7 +912,7 @@ export default {
         (contextImage.modal.querySelector('input[name="suneditor_image_radio"][value="' + contextImage._align + '"]') || contextImage.modal.querySelector('input[name="suneditor_image_radio"][value="none"]')).checked = true;
         contextImage._align = contextImage.modal.querySelector('input[name="suneditor_image_radio"]:checked').value;
         contextImage._captionChecked = contextImage.captionCheckEl.checked = !!contextImage._caption;
-        
+
         if (contextImage._resizing) {
             this.plugins.resizing._module_setModifyInputSize.call(this, contextImage, this.plugins.image);
         }
@@ -922,7 +928,7 @@ export default {
 
         if (!w) w = contextImage.inputX.value || this.options.imageWidth;
         if (!h) h = contextImage.inputY.value || this.options.imageHeight;
-        
+
         if ((contextImage._onlyPercentage && !!w) || /%$/.test(w)) {
             this.plugins.image.setPercentSize.call(this, w, h);
             return true;
@@ -987,7 +993,7 @@ export default {
         // save current size
         this.plugins.resizing._module_saveCurrentSize.call(this, contextImage);
     },
-    
+
     /**
      * @Override resizing
      */
@@ -1044,7 +1050,7 @@ export default {
      */
     cancelPercentAttr: function () {
         const contextImage = this.context.image;
-        
+
         contextImage._cover.style.width = '';
         contextImage._cover.style.height = '';
         contextImage._container.style.width = '';
@@ -1061,7 +1067,7 @@ export default {
      */
     setAlign: function (align, element, cover, container) {
         const contextImage = this.context.image;
-        
+
         if (!align) align = contextImage._align;
         if (!element) element = contextImage._element;
         if (!cover) cover = contextImage._cover;
@@ -1079,7 +1085,7 @@ export default {
             this.util.removeClass(container, contextImage._floatClassRegExp);
             this.util.addClass(container, '__se__float-' + align);
         }
-        
+
         element.setAttribute('data-align', align);
     },
 

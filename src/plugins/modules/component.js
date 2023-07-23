@@ -29,11 +29,13 @@
          * @param {String} className Class name of container (fixed: se-component)
          * @returns {Element} Created container element
          */
-        set_container: function (cover, className) {
-            const container = this.util.createElement('DIV');
+        set_container: function (cover, className, elementCreate = 'DIV') {
+            const container = this.util.createElement(elementCreate);
             container.className = 'se-component ' + className;
             container.appendChild(cover);
-    
+            if (elementCreate == 'SPAN') {
+                container.style.display = 'inline-block'
+            }
             return container;
         },
 
@@ -41,10 +43,10 @@
          * @description Cover the target element with a FIGURE element.
          * @param {Element} element Target element
          */
-        set_cover: function (element) {
-            const cover = this.util.createElement('FIGURE');
+        set_cover: function (element, elementCreate = 'FIGURE') {
+            const cover = this.util.createElement(elementCreate);
             cover.appendChild(element);
-    
+
             return cover;
         },
 
