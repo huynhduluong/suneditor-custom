@@ -113,77 +113,77 @@ export default {
         dialog.style.display = 'none';
         let html = '' +
             '<form method="post" enctype="multipart/form-data">' +
-                '<div class="se-dialog-header">' +
-                    '<button type="button" data-command="close" class="se-btn se-dialog-close" title="' + lang.dialogBox.close + '" aria-label="' + lang.dialogBox.close + '">' +
-                        core.icons.cancel +
-                    '</button>' +
-                    '<span class="se-modal-title">' + lang.dialogBox.videoBox.title + '</span>' +
-                '</div>' +
-                '<div class="se-dialog-body">';
+            '<div class="se-dialog-header">' +
+            '<button type="button" data-command="close" class="se-btn se-dialog-close" title="' + lang.dialogBox.close + '" aria-label="' + lang.dialogBox.close + '">' +
+            core.icons.cancel +
+            '</button>' +
+            '<span class="se-modal-title">' + lang.dialogBox.videoBox.title + '</span>' +
+            '</div>' +
+            '<div class="se-dialog-body">';
 
-                if (option.videoFileInput) {
-                    html += '' +
-                        '<div class="se-dialog-form">' +
-                            '<label>' + lang.dialogBox.videoBox.file + '</label>' +
-                            '<div class="se-dialog-form-files">' +
-                                '<input class="se-input-form _se_video_file" type="file" accept="' + option.videoAccept + '"' + (option.videoMultipleFile ? ' multiple="multiple"' : '') + '/>' +
-                                '<button type="button" data-command="filesRemove" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + lang.controller.remove + '" aria-label="' + lang.controller.remove + '">' + core.icons.cancel + '</button>' +
-                            '</div>' +
-                        '</div>' ;
-                }
-    
-                if (option.videoUrlInput) {
-                    html += '' +
-                        '<div class="se-dialog-form">' +
-                            '<label>' + lang.dialogBox.videoBox.url + '</label>' +
-                            '<input class="se-input-form se-input-url" type="text" />' +
-                            '<pre class="se-link-preview"></pre>' +
-                        '</div>';
-                }
-
-            if (option.videoResizing) {
-                const ratioList = option.videoRatioList || [{name: '16:9', value: 0.5625}, {name: '4:3', value: 0.75}, {name: '21:9', value: 0.4285}];
-                const ratio = option.videoRatio;
-                const onlyPercentage = option.videoSizeOnlyPercentage;
-                const onlyPercentDisplay = onlyPercentage ? ' style="display: none !important;"' : '';
-                const heightDisplay = !option.videoHeightShow ? ' style="display: none !important;"' : '';
-                const ratioDisplay = !option.videoRatioShow ? ' style="display: none !important;"' : '';
-                const onlyWidthDisplay = !onlyPercentage && !option.videoHeightShow && !option.videoRatioShow ? ' style="display: none !important;"' : '';
-                html += '' +
-                    '<div class="se-dialog-form">' +
-                        '<div class="se-dialog-size-text">' +
-                            '<label class="size-w">' + lang.dialogBox.width + '</label>' +
-                            '<label class="se-dialog-size-x">&nbsp;</label>' +
-                            '<label class="size-h"' + heightDisplay + '>' + lang.dialogBox.height + '</label>' +
-                            '<label class="size-h"' + ratioDisplay + '>(' + lang.dialogBox.ratio + ')</label>' +
-                        '</div>' +
-                        '<input class="se-input-control _se_video_size_x" placeholder="100%"' + (onlyPercentage ? ' type="number" min="1"' : 'type="text"') + (onlyPercentage ? ' max="100"' : '') + '/>' +
-                        '<label class="se-dialog-size-x"' + onlyWidthDisplay + '>' + (onlyPercentage ? '%' : 'x') + '</label>' +
-                        '<input class="se-input-control _se_video_size_y" placeholder="' + (option.videoRatio * 100) + '%"' + (onlyPercentage ? ' type="number" min="1"' : 'type="text"') + (onlyPercentage ? ' max="100"' : '') + heightDisplay + '/>' +
-                        '<select class="se-input-select se-video-ratio" title="' + lang.dialogBox.ratio + '" aria-label="' + lang.dialogBox.ratio + '"' + ratioDisplay + '>';
-                            if (!heightDisplay) html += '<option value=""> - </option>';
-                            for (let i = 0, len = ratioList.length; i < len; i++) {
-                                html += '<option value="' + ratioList[i].value + '"' + (ratio.toString() === ratioList[i].value.toString() ? ' selected' : '') + '>' + ratioList[i].name + '</option>';
-                            }
-                        html += '</select>' +
-                        '<button type="button" title="' + lang.dialogBox.revertButton + '" aria-label="' + lang.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + core.icons.revert + '</button>' +
-                    '</div>' +
-                    '<div class="se-dialog-form se-dialog-form-footer"' + onlyPercentDisplay + onlyWidthDisplay + '>' +
-                        '<label><input type="checkbox" class="se-dialog-btn-check _se_video_check_proportion" checked/>&nbsp;' + lang.dialogBox.proportion + '</label>' +
-                    '</div>';
-            }
-
+        if (option.videoFileInput) {
             html += '' +
+                '<div class="se-dialog-form">' +
+                '<label>' + lang.dialogBox.videoBox.file + '</label>' +
+                '<div class="se-dialog-form-files">' +
+                '<input class="se-input-form _se_video_file" type="file" accept="' + option.videoAccept + '"' + (option.videoMultipleFile ? ' multiple="multiple"' : '') + '/>' +
+                '<button type="button" data-command="filesRemove" class="se-btn se-dialog-files-edge-button se-file-remove" title="' + lang.controller.remove + '" aria-label="' + lang.controller.remove + '">' + core.icons.cancel + '</button>' +
                 '</div>' +
-                '<div class="se-dialog-footer">' +
-                    '<div' + (option.videoAlignShow ? '' : ' style="display: none"') + '>' +
-                        '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="none" checked>' + lang.dialogBox.basic + '</label>' +
-                        '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="left">' + lang.dialogBox.left + '</label>' +
-                        '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="center">' + lang.dialogBox.center + '</label>' +
-                        '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="right">' + lang.dialogBox.right + '</label>' +
-                    '</div>' +
-                    '<button type="submit" class="se-btn-primary" title="' + lang.dialogBox.submitButton + '" aria-label="' + lang.dialogBox.submitButton + '"><span>' + lang.dialogBox.submitButton + '</span></button>' +
+                '</div>';
+        }
+
+        if (option.videoUrlInput) {
+            html += '' +
+                '<div class="se-dialog-form">' +
+                '<label>' + lang.dialogBox.videoBox.url + '</label>' +
+                '<input class="se-input-form se-input-url" type="text" />' +
+                '<pre class="se-link-preview"></pre>' +
+                '</div>';
+        }
+
+        if (option.videoResizing) {
+            const ratioList = option.videoRatioList || [{ name: '16:9', value: 0.5625 }, { name: '4:3', value: 0.75 }, { name: '21:9', value: 0.4285 }];
+            const ratio = option.videoRatio;
+            const onlyPercentage = option.videoSizeOnlyPercentage;
+            const onlyPercentDisplay = onlyPercentage ? ' style="display: none !important;"' : '';
+            const heightDisplay = !option.videoHeightShow ? ' style="display: none !important;"' : '';
+            const ratioDisplay = !option.videoRatioShow ? ' style="display: none !important;"' : '';
+            const onlyWidthDisplay = !onlyPercentage && !option.videoHeightShow && !option.videoRatioShow ? ' style="display: none !important;"' : '';
+            html += '' +
+                '<div class="se-dialog-form">' +
+                '<div class="se-dialog-size-text">' +
+                '<label class="size-w">' + lang.dialogBox.width + '</label>' +
+                '<label class="se-dialog-size-x">&nbsp;</label>' +
+                '<label class="size-h"' + heightDisplay + '>' + lang.dialogBox.height + '</label>' +
+                '<label class="size-h"' + ratioDisplay + '>(' + lang.dialogBox.ratio + ')</label>' +
                 '</div>' +
+                '<input class="se-input-control _se_video_size_x" placeholder="100%"' + (onlyPercentage ? ' type="number" min="1"' : 'type="text"') + (onlyPercentage ? ' max="100"' : '') + '/>' +
+                '<label class="se-dialog-size-x"' + onlyWidthDisplay + '>' + (onlyPercentage ? '%' : 'x') + '</label>' +
+                '<input class="se-input-control _se_video_size_y" placeholder="' + (option.videoRatio * 100) + '%"' + (onlyPercentage ? ' type="number" min="1"' : 'type="text"') + (onlyPercentage ? ' max="100"' : '') + heightDisplay + '/>' +
+                '<select class="se-input-select se-video-ratio" title="' + lang.dialogBox.ratio + '" aria-label="' + lang.dialogBox.ratio + '"' + ratioDisplay + '>';
+            if (!heightDisplay) html += '<option value=""> - </option>';
+            for (let i = 0, len = ratioList.length; i < len; i++) {
+                html += '<option value="' + ratioList[i].value + '"' + (ratio.toString() === ratioList[i].value.toString() ? ' selected' : '') + '>' + ratioList[i].name + '</option>';
+            }
+            html += '</select>' +
+                '<button type="button" title="' + lang.dialogBox.revertButton + '" aria-label="' + lang.dialogBox.revertButton + '" class="se-btn se-dialog-btn-revert" style="float: right;">' + core.icons.revert + '</button>' +
+                '</div>' +
+                '<div class="se-dialog-form se-dialog-form-footer"' + onlyPercentDisplay + onlyWidthDisplay + '>' +
+                '<label><input type="checkbox" class="se-dialog-btn-check _se_video_check_proportion" checked/>&nbsp;' + lang.dialogBox.proportion + '</label>' +
+                '</div>';
+        }
+
+        html += '' +
+            '</div>' +
+            '<div class="se-dialog-footer">' +
+            '<div' + (option.videoAlignShow ? '' : ' style="display: none"') + '>' +
+            '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="none" checked>' + lang.dialogBox.basic + '</label>' +
+            '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="left">' + lang.dialogBox.left + '</label>' +
+            '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="center">' + lang.dialogBox.center + '</label>' +
+            '<label><input type="radio" name="suneditor_video_radio" class="se-dialog-btn-radio" value="right">' + lang.dialogBox.right + '</label>' +
+            '</div>' +
+            '<button type="submit" class="se-btn-primary" title="' + lang.dialogBox.submitButton + '" aria-label="' + lang.dialogBox.submitButton + '"><span>' + lang.dialogBox.submitButton + '</span></button>' +
+            '</div>' +
             '</form>';
 
         dialog.innerHTML = html;
@@ -322,7 +322,7 @@ export default {
     open: function () {
         this.plugins.dialog.open.call(this, 'video', 'video' === this.currentControllerName);
     },
-    
+
     setVideoRatio: function (e) {
         const contextVideo = this.context.video;
         const value = e.target.options[e.target.selectedIndex].value;
@@ -407,7 +407,7 @@ export default {
 
             if ((fileSize + infoSize) > limitSize) {
                 this.closeLoading();
-                const err = '[SUNEDITOR.videoUpload.fail] Size of uploadable total videos: ' + (limitSize/1000) + 'KB';
+                const err = '[SUNEDITOR.videoUpload.fail] Size of uploadable total videos: ' + (limitSize / 1000) + 'KB';
                 if (typeof this.functions.onVideoUploadError !== 'function' || this.functions.onVideoUploadError(err, { 'limitSize': limitSize, 'currentSize': infoSize, 'uploadSize': fileSize }, this)) {
                     this.functions.noticeOpen(err);
                 }
@@ -516,7 +516,7 @@ export default {
                 url = oIframe.src;
                 if (url.length === 0) return false;
             }
-            
+
             /** youtube */
             if (/youtu\.?be/.test(url)) {
                 if (!/^http/.test(url)) url = 'https://' + url;
@@ -551,7 +551,7 @@ export default {
     create_video: function (oFrame, src, width, height, align, file, isUpdate) {
         this.context.resizing._resize_plugin = 'video';
         const contextVideo = this.context.video;
-        
+
         let cover = null;
         let container = null;
         let init = false;
@@ -641,11 +641,11 @@ export default {
         if (!oFrame) return;
 
         const contextVideo = this.context.video;
-        
+
         if (/^video$/i.test(oFrame.nodeName)) this.plugins.video._setTagAttrs.call(this, oFrame);
         else this.plugins.video._setIframeAttrs.call(this, oFrame);
-        
-        let existElement = (this.util.isRangeFormatElement(oFrame.parentNode) || this.util.isWysiwygDiv(oFrame.parentNode)) ? 
+
+        let existElement = (this.util.isRangeFormatElement(oFrame.parentNode) || this.util.isWysiwygDiv(oFrame.parentNode)) ?
             oFrame : this.util.getFormatElement(oFrame) || oFrame;
 
         const prevFrame = oFrame;
@@ -742,7 +742,7 @@ export default {
 
         if (contextVideo._resizing) {
             this.plugins.resizing._module_setModifyInputSize.call(this, contextVideo, this.plugins.video);
-            
+
             const y = contextVideo._videoRatio = this.plugins.resizing._module_getSizeY.call(this, contextVideo);
             const ratioSelected = this.plugins.video.setVideoRatioSelect.call(this, y);
             if (!ratioSelected) contextVideo.inputY.value = contextVideo._onlyPercentage ? this.util.getNumber(y, 2) : y;
@@ -750,7 +750,7 @@ export default {
 
         if (!notOpen) this.plugins.dialog.open.call(this, 'video', true);
     },
-    
+
     setVideoRatioSelect: function (value) {
         let ratioSelected = false;
         const contextVideo = this.context.video;
@@ -793,7 +793,7 @@ export default {
 
         if (!w) w = contextVideo.inputX.value || this.options.videoWidth;
         if (!h) h = contextVideo.inputY.value || this.options.videoHeight;
-        
+
         if (contextVideo._onlyPercentage || /%$/.test(w) || !w) {
             this.plugins.video.setPercentSize.call(this, (w || '100%'), (h || (/%$/.test(contextVideo._videoRatio) ? contextVideo._videoRatio : contextVideo._defaultRatio)));
             return true;
@@ -863,7 +863,7 @@ export default {
         this.plugins.video.cancelPercentAttr.call(this);
 
         const originSize = ((dataSize ? contextVideo._element.getAttribute('data-size') : '') || contextVideo._element.getAttribute('data-origin') || '').split(',');
-        
+
         if (originSize) {
             const w = originSize[0];
             const h = originSize[1];
@@ -907,15 +907,20 @@ export default {
      */
     cancelPercentAttr: function () {
         const contextVideo = this.context.video;
-        
-        contextVideo._cover.style.width = '';
-        contextVideo._cover.style.height = '';
-        contextVideo._cover.style.paddingBottom = '';
-        contextVideo._container.style.width = '';
-        contextVideo._container.style.height = '';
 
-        this.util.removeClass(contextVideo._container, this.context.video._floatClassRegExp);
-        this.util.addClass(contextVideo._container, '__se__float-' + contextVideo._align);
+        if (contextVideo._cover) {
+            contextVideo._cover.style.width = '';
+            contextVideo._cover.style.height = '';
+            contextVideo._cover.style.paddingBottom = '';
+        }
+
+        if (contextVideo._container) {
+            contextVideo._container.style.width = '';
+            contextVideo._container.style.height = '';
+
+            this.util.removeClass(contextVideo._container, this.context.video._floatClassRegExp);
+            this.util.addClass(contextVideo._container, '__se__float-' + contextVideo._align);
+        }
 
         if (contextVideo._align === 'center') this.plugins.video.setAlign.call(this, null, null, null, null);
     },
@@ -925,7 +930,7 @@ export default {
      */
     setAlign: function (align, element, cover, container) {
         const contextVideo = this.context.video;
-        
+
         if (!align) align = contextVideo._align;
         if (!element) element = contextVideo._element;
         if (!cover) cover = contextVideo._cover;
@@ -938,15 +943,17 @@ export default {
             cover.style.paddingBottom = !/%$/.test(cover.style.height) ? cover.style.height : this.util.getNumber((this.util.getNumber(cover.style.height, 2) / 100) * this.util.getNumber(cover.style.width, 2), 2) + '%';
         } else {
             container.style.minWidth = '';
-            cover.style.width = this.context.resizing._rotateVertical ? (element.style.height || element.offsetHeight) : (element.style.width || '100%');
-            cover.style.paddingBottom = cover.style.height;
+            if (cover && cover.style && element.style) {
+                cover.style.width = this.context.resizing._rotateVertical ? element.style && (element.style.height || element.offsetHeight) : (element.style && element.style.width || '100%');
+                cover.style.paddingBottom = cover.style.height;
+            }
         }
 
         if (!this.util.hasClass(container, '__se__float-' + align)) {
             this.util.removeClass(container, contextVideo._floatClassRegExp);
             this.util.addClass(container, '__se__float-' + align);
         }
-        
+
         element.setAttribute('data-align', align);
     },
 
@@ -965,7 +972,7 @@ export default {
         contextVideo._origin_w = this.options.videoWidth;
         contextVideo._origin_h = this.options.videoHeight;
         contextVideo.modal.querySelector('input[name="suneditor_video_radio"][value="none"]').checked = true;
-        
+
         if (contextVideo._resizing) {
             contextVideo.inputX.value = this.options.videoWidth === contextVideo._defaultSizeX ? '' : this.options.videoWidth;
             contextVideo.inputY.value = this.options.videoHeight === contextVideo._defaultSizeY ? '' : this.options.videoHeight;

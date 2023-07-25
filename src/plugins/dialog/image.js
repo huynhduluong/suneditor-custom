@@ -981,14 +981,20 @@ export default {
         this.plugins.resizing.resetTransform.call(this, contextImage._element);
         this.plugins.image.cancelPercentAttr.call(this);
 
-        contextImage._element.style.maxWidth = '';
-        contextImage._element.style.width = '';
-        contextImage._element.style.height = '';
-        contextImage._cover.style.width = '';
-        contextImage._cover.style.height = '';
+        if (contextImage && contextImage._element) {
+            contextImage._element.style.maxWidth = '';
+            contextImage._element.style.width = '';
+            contextImage._element.style.height = '';
+        }
+        if (contextImage && contextImage._cover) {
+            contextImage._cover.style.width = '';
+            contextImage._cover.style.height = '';
+        }
 
         this.plugins.image.setAlign.call(this, null, null, null, null);
-        contextImage._element.setAttribute('data-percentage', 'auto,auto');
+        if (contextImage && contextImage._element) {
+            contextImage._element.setAttribute('data-percentage', 'auto,auto');
+        }
 
         // save current size
         this.plugins.resizing._module_saveCurrentSize.call(this, contextImage);
@@ -1050,11 +1056,14 @@ export default {
      */
     cancelPercentAttr: function () {
         const contextImage = this.context.image;
-
-        contextImage._cover.style.width = '';
-        contextImage._cover.style.height = '';
-        contextImage._container.style.width = '';
-        contextImage._container.style.height = '';
+        if (contextImage._cover) {
+            contextImage._cover.style.width = '';
+            contextImage._cover.style.height = '';
+        }
+        if (contextImage._container) {
+            contextImage._container.style.width = '';
+            contextImage._container.style.height = '';
+        }
 
         this.util.removeClass(contextImage._container, this.context.image._floatClassRegExp);
         this.util.addClass(contextImage._container, '__se__float-' + contextImage._align);
@@ -1078,7 +1087,8 @@ export default {
             cover.style.width = container.style.width;
         } else {
             container.style.minWidth = '';
-            cover.style.width = this.context.resizing._rotateVertical ? (element.style.height || element.offsetHeight) : ((!element.style.width || element.style.width === 'auto') ? '' : element.style.width || '100%');
+            if (cover && cover.style && element)
+                cover.style.width = this.context.resizing._rotateVertical ? (element.style && element.style.height || element.offsetHeight) : (element.style && (!element.style.width || element.style.width === 'auto') ? '' : element.style && element.style.width || '100%');
         }
 
         if (!this.util.hasClass(container, '__se__float-' + align)) {
