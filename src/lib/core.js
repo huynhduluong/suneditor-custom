@@ -7414,7 +7414,7 @@ export default function (context, pluginCallButtons, plugins, lang, options, _re
 
                                 if (util.isListCell(rangeEl.parentNode)) {
                                     rangeEl = formatEl.parentNode.parentNode.parentNode;
-                                    newEl = util.splitElement(formatEl, null, util.getElementDepth(formatEl) - 2);
+                                    // newEl = util.splitElement(formatEl, null, util.getElementDepth(formatEl) - 2);
                                     if (!newEl) {
                                         const newListCell = util.createElement('LI');
                                         newListCell.innerHTML = '<br>';
