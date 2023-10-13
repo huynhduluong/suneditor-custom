@@ -7485,21 +7485,33 @@ export default function (context, pluginCallButtons, plugins, lang, options, _re
                         if (range.collapsed && (formatStartEdge || formatEndEdge)) {
                             e.preventDefault();
                             const focusBR = util.createElement('BR');
-                            const newFormat = util.createElement(formatEl.nodeName);
-                            util.copyTagAttributes(newFormat, formatEl, options.lineAttrReset);
+                            let newFormat = util.createElement(formatEl.nodeName);
+                            if (formatEl.classList.contains('sun-editor-editable')) {
+                                newFormat = util.createElement("P")
+                                let formatBreak = util.createElement("P");
+                                formatBreak.appendChild(util.createElement("BR"))
+                                util.copyTagAttributes(newFormat, formatBreak, options.lineAttrReset);
+                            } else {
+                                util.copyTagAttributes(newFormat, formatEl, options.lineAttrReset);
+                            }
 
                             let child = focusBR;
                             do {
                                 if (!util.isBreak(selectionNode) && selectionNode.nodeType === 1) {
                                     const f = selectionNode.cloneNode(false);
                                     f.appendChild(child);
-                                    child = f;
+                                    if (!f.classList.contains('sun-editor-editable'))
+                                        child = f;
                                 }
                                 selectionNode = selectionNode.parentNode;
                             } while (formatEl !== selectionNode && formatEl.contains(selectionNode));
 
                             newFormat.appendChild(child);
-                            formatEl.parentNode.insertBefore(newFormat, formatStartEdge && !formatEndEdge ? formatEl : formatEl.nextElementSibling);
+                            if (formatEl.parentNode.classList.contains('se-wrapper')) {
+                                formatEl.appendChild(newFormat)
+                            } else {
+                                formatEl.parentNode.insertBefore(newFormat, formatStartEdge && !formatEndEdge ? formatEl : formatEl.nextElementSibling);
+                            }
                             if (formatEndEdge) {
                                 core.setRange(focusBR, 1, focusBR, 1);
                             }
